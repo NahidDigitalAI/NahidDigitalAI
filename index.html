@@ -7,7 +7,7 @@
     <!-- Website Favicon / Browser Tab Logo -->
     <link rel="icon" type="image/png" href="NahidDigitalAI.png">
 
-    <!-- Ultimate Local SEO Meta Tags for High Ranking -->
+    <!-- Ultimate Local SEO Meta Tags for High Ranking in Rajshahi & Google -->
     <title>MD NAHID HASAN SHEIKH | Top Digital Marketing & AI Expert in Rajshahi</title>
     <meta name="description" content="MD NAHID HASAN SHEIKH (NahidDigitalAI) is the Best Digital Marketing and AI Expert in Rajshahi, Bangladesh. Specializing in AI business growth, Python automation, Local SEO, and Facebook Ads.">
     <meta name="keywords" content="MD NAHID HASAN SHEIKH, NahidDigitalAI, Best Digital Marketing Expert in Rajshahi, Top AI Expert Bangladesh, AI Marketing Strategist Rajshahi, Local SEO Expert Bangladesh, Python Automation Specialist Rajshahi, Data Scraping Expert, Telegram Bot Developer, Business Growth Specialist, Facebook Ads Expert Rajshahi, Best Freelancer in Rajshahi">
@@ -188,11 +188,23 @@
 
         /* General Sections */
         section { padding: 6rem 5%; max-width: 1300px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
         .section-header h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 1rem; font-family: 'Playfair Display', serif; }
         .section-header p { color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* Blog Search & Filter Bar */
+        .blog-filter-wrapper { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; align-items: center; }
+        .blog-search-box { position: relative; width: 100%; max-width: 500px; }
+        .blog-search-box input { width: 100%; padding: 12px 20px 12px 45px; border-radius: 50px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-dark); font-size: 1rem; outline: none; transition: border 0.3s; box-shadow: var(--shadow); }
+        .blog-search-box input:focus { border-color: var(--primary-color); }
+        .blog-search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-light); }
+
+        .blog-categories { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .cat-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-light); padding: 8px 18px; border-radius: 50px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.3s; box-shadow: var(--shadow); }
+        .cat-btn:hover, .cat-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .card { background: var(--card-bg); padding: 2.5rem 2rem; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border-color); transition: all 0.3s ease; }
+        .card { background: var(--card-bg); padding: 2.5rem 2rem; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border-color); transition: all 0.3s ease; position: relative; }
         .card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); border-color: var(--primary-color); }
         .card-icon { width: 60px; height: 60px; background: rgba(var(--primary-color-rgb), 0.1); color: var(--primary-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem; }
         .card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); }
@@ -305,6 +317,40 @@
             background: none; border: none; font-size: 1.5rem; color: var(--text-light); cursor: pointer;
         }
 
+        /* Admin Post Management List */
+        .admin-post-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .admin-post-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 350px;
+        }
+        .delete-post-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .delete-post-btn:hover {
+            background: #dc2626;
+        }
+
         /* Blog Reader Content Style */
         .blog-full-content {
             color: var(--text-light);
@@ -359,7 +405,7 @@
         </div>
     </div>
 
-    <!-- Admin Login / Post Creator Modal -->
+    <!-- Admin Login / Post Creator & Manager Modal -->
     <div id="adminModal" class="modal-overlay">
         <div class="admin-modal-box">
             <div class="admin-header-flex">
@@ -369,23 +415,30 @@
             
             <!-- Login View -->
             <div id="adminLoginView">
-                <p style="color: var(--text-light); margin-bottom: 1rem;">Enter your credentials to publish new blog posts.</p>
+                <p style="color: var(--text-light); margin-bottom: 1rem;">Enter your credentials to manage blog posts.</p>
                 <form id="adminLoginForm" class="admin-form">
-                    <input type="text" id="adminUser" placeholder="Username" required>
-                    <input type="password" id="adminPass" placeholder="Password" required>
+                    <input type="text" id="adminUser" placeholder="Username (nahid)" required>
+                    <input type="password" id="adminPass" placeholder="Password (ai2026)" required>
                     <button type="submit" class="submit-btn">Login <i class="fas fa-lock-open"></i></button>
                 </form>
             </div>
 
-            <!-- Blog Creator View (Hidden initially) -->
+            <!-- Blog Creator & Manager View (Hidden initially) -->
             <div id="adminPostView" style="display: none;">
-                <p style="color: var(--text-light); margin-bottom: 1rem;">Create and publish a new article instantly.</p>
-                <form id="blogPostForm" class="admin-form">
+                <p style="color: var(--text-light); margin-bottom: 1rem; font-weight: 600;">Publish New Article</p>
+                <form id="blogPostForm" class="admin-form" style="margin-bottom: 2rem;">
                     <input type="text" id="blogTitle" placeholder="Blog Post Title" required>
-                    <input type="text" id="blogCategory" placeholder="Category (e.g., AI & Python, Digital Marketing)" required>
-                    <textarea id="blogContent" rows="6" placeholder="Write your full article content here..." required></textarea>
+                    <input type="text" id="blogCategory" placeholder="Category (e.g., AI & Python, Local SEO)" required>
+                    <textarea id="blogContent" rows="4" placeholder="Write your full article content here..." required></textarea>
                     <button type="submit" class="submit-btn">Publish Post <i class="fas fa-paper-plane"></i></button>
                 </form>
+
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+                
+                <p style="color: var(--text-dark); margin-bottom: 0.8rem; font-weight: 700;">Manage / Delete Existing Posts</p>
+                <div id="adminPostList" style="max-height: 200px; overflow-y: auto;">
+                    <!-- Post list for deletion will load here -->
+                </div>
             </div>
         </div>
     </div>
@@ -523,12 +576,27 @@
         </div>
     </section>
 
-    <!-- Blog Section -->
+    <!-- Blog Section with Search & Category Filter -->
     <section id="blog">
         <div class="section-header" data-aos="fade-up">
             <h2>Latest Insights & Blog</h2>
             <p>Read expert articles on AI, Digital Marketing, SEO, and Python Automation.</p>
         </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="blog-filter-wrapper" data-aos="fade-up">
+            <div class="blog-search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="blogSearchInput" placeholder="Search articles by title or keyword...">
+            </div>
+            <div class="blog-categories" id="blogCategoryFilters">
+                <button class="cat-btn active" data-category="All">All</button>
+                <button class="cat-btn" data-category="AI & SEO">AI & SEO</button>
+                <button class="cat-btn" data-category="Digital Marketing">Digital Marketing</button>
+                <button class="cat-btn" data-category="Python Automation">Python Automation</button>
+            </div>
+        </div>
+
         <div class="grid-container" id="blogContainer">
             <!-- Dynamic Blog posts will load here -->
         </div>
@@ -728,7 +796,7 @@
         });
 
         // ==========================================
-        // 🔐 ADMIN LOGIN & BLOG SYSTEM (FULL VIEW)
+        // 🔐 ADMIN LOGIN, ADD & REMOVE BLOG SYSTEM
         // ==========================================
         const adminModal = document.getElementById('adminModal');
         const openAdminBtn = document.getElementById('openAdminBtn');
@@ -739,12 +807,17 @@
         const adminModalTitle = document.getElementById('adminModalTitle');
         const blogPostForm = document.getElementById('blogPostForm');
         const blogContainer = document.getElementById('blogContainer');
+        const adminPostList = document.getElementById('adminPostList');
 
         const blogReadModal = document.getElementById('blogReadModal');
         const closeBlogModal = document.getElementById('closeBlogModal');
         const readBlogTitle = document.getElementById('readBlogTitle');
         const readBlogMeta = document.getElementById('readBlogMeta');
         const readBlogContent = document.getElementById('readBlogContent');
+
+        const blogSearchInput = document.getElementById('blogSearchInput');
+        const blogCategoryFilters = document.getElementById('blogCategoryFilters');
+        let currentCategory = 'All';
 
         const ADMIN_USER = "nahid";
         const ADMIN_PASS = "ai2026";
@@ -754,7 +827,8 @@
             if(sessionStorage.getItem('isAdminLoggedIn') === 'true') {
                 adminLoginView.style.display = 'none';
                 adminPostView.style.display = 'block';
-                adminModalTitle.textContent = "Publish New Blog Post";
+                adminModalTitle.textContent = "Manage Blog Posts";
+                renderAdminPostList();
             } else {
                 adminLoginView.style.display = 'block';
                 adminPostView.style.display = 'none';
@@ -779,13 +853,15 @@
                 sessionStorage.setItem('isAdminLoggedIn', 'true');
                 adminLoginView.style.display = 'none';
                 adminPostView.style.display = 'block';
-                adminModalTitle.textContent = "Publish New Blog Post";
+                adminModalTitle.textContent = "Manage Blog Posts";
+                renderAdminPostList();
                 adminLoginForm.reset();
             } else {
                 alert("Invalid Username or Password!");
             }
         });
 
+        // Add Blog Post
         blogPostForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const title = document.getElementById('blogTitle').value;
@@ -793,17 +869,42 @@
             const content = document.getElementById('blogContent').value;
             const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-            const newPost = { title, category, content, date };
+            const newPost = { id: Date.now(), title, category, content, date };
             
             let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
             savedPosts.unshift(newPost);
             localStorage.setItem('nahid_blog_posts', JSON.stringify(savedPosts));
 
             renderBlogs();
+            renderAdminPostList();
             blogPostForm.reset();
-            adminModal.classList.remove('active');
             alert("Blog post published successfully!");
         });
+
+        // Delete Blog Post
+        window.deleteBlogPost = function(id) {
+            if(confirm("Are you sure you want to delete this blog post?")) {
+                let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
+                savedPosts = savedPosts.filter(post => post.id !== id);
+                localStorage.setItem('nahid_blog_posts', JSON.stringify(savedPosts));
+                renderBlogs();
+                renderAdminPostList();
+            }
+        };
+
+        function renderAdminPostList() {
+            let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
+            if(savedPosts.length === 0) {
+                adminPostList.innerHTML = `<p style="color: var(--text-light); font-size: 0.9rem;">No custom posts found. Create one above!</p>`;
+                return;
+            }
+            adminPostList.innerHTML = savedPosts.map(post => `
+                <div class="admin-post-item">
+                    <span class="admin-post-title" title="${post.title}">${post.title}</span>
+                    <button class="delete-post-btn" onclick="deleteBlogPost(${post.id})"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            `).join('');
+        }
 
         // Open Full Blog View
         window.openFullBlog = function(title, date, category, encodedContent) {
@@ -814,11 +915,12 @@
             blogReadModal.classList.add('active');
         };
 
+        // Render Blogs with Search & Category Filter
         function renderBlogs() {
             let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
             
-            // Default built-in expert post
             const defaultPost = {
+                id: 0,
                 title: "How AI is Shaping Modern Digital Marketing in 2026",
                 category: "AI & SEO",
                 date: "September 23, 2026",
@@ -826,8 +928,20 @@
             };
 
             let allPosts = [defaultPost, ...savedPosts];
+            const searchQuery = blogSearchInput.value.toLowerCase();
 
-            blogContainer.innerHTML = allPosts.map(post => {
+            let filteredPosts = allPosts.filter(post => {
+                const matchesCategory = currentCategory === 'All' || post.category.toLowerCase() === currentCategory.toLowerCase();
+                const matchesSearch = post.title.toLowerCase().includes(searchQuery) || post.content.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            if(filteredPosts.length === 0) {
+                blogContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-light); padding: 2rem;">No articles found matching your criteria.</p>`;
+                return;
+            }
+
+            blogContainer.innerHTML = filteredPosts.map(post => {
                 const encoded = encodeURIComponent(post.content);
                 const shortDesc = post.content.length > 110 ? post.content.substring(0, 110) + '...' : post.content;
                 return `
@@ -843,6 +957,18 @@
                 `;
             }).join('');
         }
+
+        // Event listeners for Search & Filter
+        blogSearchInput.addEventListener('input', renderBlogs);
+
+        blogCategoryFilters.addEventListener('click', (e) => {
+            if(e.target.classList.contains('cat-btn')) {
+                document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentCategory = e.target.getAttribute('data-category');
+                renderBlogs();
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', renderBlogs);
 
