@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Website Favicon / Browser Tab Logo -->
+    <link rel="icon" type="image/png" href="NahidDigitalAI.png">
+
     <!-- Ultimate Local SEO Meta Tags for High Ranking -->
     <title>MD NAHID HASAN SHEIKH | Top Digital Marketing & AI Expert in Rajshahi</title>
     <meta name="description" content="MD NAHID HASAN SHEIKH (NahidDigitalAI) is the Best Digital Marketing and AI Expert in Rajshahi, Bangladesh. Specializing in AI business growth, Python automation, Local SEO, and Facebook Ads.">
@@ -153,10 +156,17 @@
         .ping-animate { position: absolute; height: 100%; width: 100%; border-radius: 50%; background-color: #22c55e; opacity: 0.75; animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
         .ping-dot { position: relative; border-radius: 50%; height: 12px; width: 12px; background-color: #22c55e; }
         @keyframes ping { 75%, 100% { transform: scale(2.5); opacity: 0; } }
-        .nav-actions { display: flex; align-items: center; gap: 1.5rem; }
+        
+        .nav-menu { display: flex; gap: 1.5rem; align-items: center; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-menu a:hover { color: var(--primary-color); }
+
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
         .theme-switch { background: none; border: none; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; transition: 0.3s; }
         .theme-switch:hover { color: var(--primary-color); transform: scale(1.1); }
-        .contact-btn { background: var(--primary-color); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .admin-btn { background: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 6px; }
+        .admin-btn:hover { background: var(--primary-color); color: #fff; }
+        .contact-btn { background: var(--primary-color); color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .contact-btn:hover { background: var(--text-dark); color: #fff; }
 
         /* Hero Section */
@@ -170,6 +180,7 @@
         .hero-desc { font-size: 1.1rem; line-height: 1.8; color: var(--text-light); margin-bottom: 2.5rem; max-width: 600px; }
         .hero-social { display: flex; gap: 12px; margin-bottom: 3rem; }
         .social-icon { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 10px; background: var(--card-bg); color: var(--text-dark); font-size: 1.3rem; text-decoration: none; transition: all 0.3s; box-shadow: var(--shadow); border: 1px solid var(--border-color); }
+        .social-icon svg { width: 20px; height: 20px; fill: currentColor; transition: fill 0.3s; }
         .social-icon:hover { background: var(--primary-color); color: #fff; transform: translateY(-5px); border-color: var(--primary-color); }
         .hero-image { flex: 1; display: flex; justify-content: center; align-items: center; }
         .hero-image img { max-width: 100%; width: 450px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1)); }
@@ -187,6 +198,13 @@
         .card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); }
         .card p { color: var(--text-light); line-height: 1.6; font-size: 0.95rem; }
 
+        /* Blog Card Customization */
+        .blog-card { display: flex; flex-direction: column; justify-content: space-between; }
+        .blog-meta { font-size: 0.85rem; color: var(--primary-color); font-weight: 600; margin-bottom: 0.5rem; }
+        .blog-desc { margin-bottom: 1.5rem; }
+        .read-more-btn { background: transparent; border: none; color: var(--primary-color); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 0.95rem; text-decoration: none; }
+        .read-more-btn:hover { text-decoration: underline; }
+
         /* Stats Section */
         .stats-wrapper { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; text-align: center; background: var(--card-bg); padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border-color); }
         .stat-item h3 { font-size: 2.5rem; color: var(--primary-color); font-weight: 800; margin-bottom: 0.5rem; }
@@ -196,12 +214,12 @@
         .contact-container { background: var(--card-bg); padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); max-width: 800px; margin: 0 auto; border: 1px solid var(--border-color); }
         .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
         .input-group { display: flex; gap: 1.5rem; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem; outline: none; transition: border 0.3s; }
-        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary-color); }
+        .contact-form input, .contact-form textarea, .admin-modal-box input, .admin-modal-box textarea { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem; outline: none; transition: border 0.3s; }
+        .contact-form input:focus, .contact-form textarea:focus, .admin-modal-box input:focus, .admin-modal-box textarea:focus { border-color: var(--primary-color); }
         .submit-btn { background: var(--primary-color); color: #fff; border: none; padding: 15px; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .submit-btn:hover { background: var(--text-dark); }
 
-        /* Success Popup Modal Styles */
+        /* Modals Overlay Styles */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -255,15 +273,47 @@
             opacity: 0.9; transform: translateY(-2px);
         }
 
+        /* Admin / Blog Creation Modal */
+        .admin-modal-box {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            max-width: 550px; width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.active .admin-modal-box {
+            transform: scale(1);
+        }
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+        .admin-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .close-x {
+            background: none; border: none; font-size: 1.5rem; color: var(--text-light); cursor: pointer;
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-wa { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: white; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000; transition: 0.3s; text-decoration: none; }
+        .floating-wa:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6); }
+
         /* Footer & Full Social Links */
         footer { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; padding: 3rem 5%; background: var(--card-bg); border-top: 1px solid var(--border-color); color: var(--text-light); margin-top: 2rem; }
         .footer-social { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; max-width: 850px; }
         .share-btn { background: var(--primary-color); color: #ffffff; border: none; padding: 12px 28px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.3); transition: 0.3s; margin-top: 1rem; }
         .share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.4); }
-
-        /* Floating WhatsApp Button */
-        .floating-wa { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: white; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000; transition: 0.3s; text-decoration: none; }
-        .floating-wa:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6); }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -271,6 +321,7 @@
             .hero-content { padding-right: 0; margin-bottom: 4rem; display: flex; flex-direction: column; align-items: center; }
             .hero-social { justify-content: center; }
             .input-group { flex-direction: column; }
+            .nav-menu { display: none; }
         }
     </style>
 </head>
@@ -280,9 +331,40 @@
     <div id="successModal" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
-            <h3>Message Sent!</h3>
-            <p>Thank you for reaching out. We will get back to you soon.</p>
+            <h3 id="modalTitle">Message Sent!</h3>
+            <p id="modalDesc">Thank you for reaching out. We will get back to you soon.</p>
             <button id="closeModalBtn" class="modal-close-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- Admin Login / Post Creator Modal -->
+    <div id="adminModal" class="modal-overlay">
+        <div class="admin-modal-box">
+            <div class="admin-header-flex">
+                <h3 id="adminModalTitle" style="color: var(--text-dark);">Admin Portal</h3>
+                <button class="close-x" id="closeAdminModal"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <!-- Login View -->
+            <div id="adminLoginView">
+                <p style="color: var(--text-light); margin-bottom: 1rem;">Enter your credentials to publish new blog posts.</p>
+                <form id="adminLoginForm" class="admin-form">
+                    <input type="text" id="adminUser" placeholder="Username" required>
+                    <input type="password" id="adminPass" placeholder="Password" required>
+                    <button type="submit" class="submit-btn">Login <i class="fas fa-lock-open"></i></button>
+                </form>
+            </div>
+
+            <!-- Blog Creator View (Hidden initially) -->
+            <div id="adminPostView" style="display: none;">
+                <p style="color: var(--text-light); margin-bottom: 1rem;">Create and publish a new article instantly.</p>
+                <form id="blogPostForm" class="admin-form">
+                    <input type="text" id="blogTitle" placeholder="Blog Post Title" required>
+                    <input type="text" id="blogCategory" placeholder="Category (e.g., AI & Python, Digital Marketing)" required>
+                    <textarea id="blogContent" rows="5" placeholder="Write your full article content here..." required></textarea>
+                    <button type="submit" class="submit-btn">Publish Post <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -300,7 +382,16 @@
                 <span class="ping-dot"></span>
             </span>
         </div>
+        <ul class="nav-menu">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
         <div class="nav-actions">
+            <button class="admin-btn" id="openAdminBtn" title="Admin Login">
+                <i class="fas fa-user-shield"></i> Admin
+            </button>
             <button class="theme-switch" id="themeToggle" title="Toggle Dark/Light Mode">
                 <i class="fas fa-moon"></i>
             </button>
@@ -326,7 +417,10 @@
                 <a href="https://facebook.com/NahidDigitalAI" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://linkedin.com/in/NahidDigitalAI" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://instagram.com/NahidDigitalAI" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://twitter.com/NahidDigitalAI" target="_blank" class="social-icon" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+                <!-- Fixed X (Twitter) SVG Icon -->
+                <a href="https://twitter.com/NahidDigitalAI" target="_blank" class="social-icon" title="X (Twitter)">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
                 <a href="https://youtube.com/@NahidDigitalAI" target="_blank" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
@@ -408,6 +502,26 @@
         </div>
     </section>
 
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Latest Insights & Blog</h2>
+            <p>Read expert articles on AI, Digital Marketing, SEO, and Python Automation.</p>
+        </div>
+        <div class="grid-container" id="blogContainer">
+            <!-- Dynamic Blog posts will load here -->
+            <div class="card blog-card" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="blog-meta"><i class="fas fa-calendar-alt"></i> September 23, 2026 • AI & SEO</div>
+                    <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-brain"></i></div>
+                    <h3>How AI is Shaping Modern Digital Marketing in 2026</h3>
+                    <p class="blog-desc">Discover how integrating large language models and automated data processing transforms traditional local SEO and customer acquisition strategies.</p>
+                </div>
+                <button class="read-more-btn" onclick="alert('Full article view coming soon!')">Read Full Article <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Form Section with Telegram Integration -->
     <section id="contact">
         <div class="section-header" data-aos="fade-up">
@@ -431,7 +545,10 @@
     <footer>
         <div class="footer-social">
             <a href="https://facebook.com/NahidDigitalAI" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://twitter.com/NahidDigitalAI" target="_blank" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <!-- Fixed X (Twitter) SVG Icon in Footer -->
+            <a href="https://twitter.com/NahidDigitalAI" target="_blank" class="social-icon" title="X (Twitter)">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
             <a href="#" target="_blank" class="social-icon" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="#" target="_blank" class="social-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             <a href="https://linkedin.com/in/NahidDigitalAI" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -599,6 +716,110 @@
             }
         });
 
+        // ==========================================
+        // 🔐 ADMIN LOGIN & BLOG POST SYSTEM
+        // ==========================================
+        const adminModal = document.getElementById('adminModal');
+        const openAdminBtn = document.getElementById('openAdminBtn');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const adminLoginView = document.getElementById('adminLoginView');
+        const adminPostView = document.getElementById('adminPostView');
+        const adminModalTitle = document.getElementById('adminModalTitle');
+        const blogPostForm = document.getElementById('blogPostForm');
+        const blogContainer = document.getElementById('blogContainer');
+
+        const ADMIN_USER = "nahid";
+        const ADMIN_PASS = "ai2026";
+
+        openAdminBtn.addEventListener('click', () => {
+            adminModal.classList.add('active');
+            if(sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+                adminLoginView.style.display = 'none';
+                adminPostView.style.display = 'block';
+                adminModalTitle.textContent = "Publish New Blog Post";
+            } else {
+                adminLoginView.style.display = 'block';
+                adminPostView.style.display = 'none';
+                adminModalTitle.textContent = "Admin Portal Login";
+            }
+        });
+
+        closeAdminModal.addEventListener('click', () => {
+            adminModal.classList.remove('active');
+        });
+
+        adminModal.addEventListener('click', (e) => {
+            if(e.target === adminModal) adminModal.classList.remove('active');
+        });
+
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const uInput = document.getElementById('adminUser').value;
+            const pInput = document.getElementById('adminPass').value;
+
+            if(uInput === ADMIN_USER && pInput === ADMIN_PASS) {
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
+                adminLoginView.style.display = 'none';
+                adminPostView.style.display = 'block';
+                adminModalTitle.textContent = "Publish New Blog Post";
+                adminLoginForm.reset();
+            } else {
+                alert("Invalid Username or Password!");
+            }
+        });
+
+        blogPostForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('blogTitle').value;
+            const category = document.getElementById('blogCategory').value;
+            const content = document.getElementById('blogContent').value;
+            const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+            const newPost = { title, category, content, date };
+            
+            let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
+            savedPosts.unshift(newPost);
+            localStorage.setItem('nahid_blog_posts', JSON.stringify(savedPosts));
+
+            renderBlogs();
+            blogPostForm.reset();
+            adminModal.classList.remove('active');
+            alert("Blog post published successfully!");
+        });
+
+        function renderBlogs() {
+            let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
+            
+            let defaultPostHTML = `
+                <div class="card blog-card" data-aos="fade-up">
+                    <div>
+                        <div class="blog-meta"><i class="fas fa-calendar-alt"></i> September 23, 2026 • AI & SEO</div>
+                        <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-brain"></i></div>
+                        <h3>How AI is Shaping Modern Digital Marketing in 2026</h3>
+                        <p class="blog-desc">Discover how integrating large language models and automated data processing transforms traditional local SEO and customer acquisition strategies.</p>
+                    </div>
+                    <button class="read-more-btn" onclick="alert('Full article view coming soon!')">Read Full Article <i class="fas fa-arrow-right"></i></button>
+                </div>
+            `;
+
+            let dynamicHTML = savedPosts.map(post => `
+                <div class="card blog-card" data-aos="fade-up">
+                    <div>
+                        <div class="blog-meta"><i class="fas fa-calendar-alt"></i> ${post.date} • ${post.category}</div>
+                        <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-newspaper"></i></div>
+                        <h3>${post.title}</h3>
+                        <p class="blog-desc">${post.content.substring(0, 110)}...</p>
+                    </div>
+                    <button class="read-more-btn" onclick="alert('${post.content.replace(/'/g, "\\'")}')">Read Full Article <i class="fas fa-arrow-right"></i></button>
+                </div>
+            `).join('');
+
+            blogContainer.innerHTML = defaultPostHTML + dynamicHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderBlogs);
+
         // Telegram Message Sender & Modal Logic (@Help_404_bot)
         const tgForm = document.getElementById('tgContactForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -614,7 +835,7 @@
 
             const name = document.getElementById('senderName').value;
             const email = document.getElementById('senderEmail').value;
-            const subject = document.getElementById('senderSubject2')?.value || document.getElementById('senderSubject').value;
+            const subject = document.getElementById('senderSubject').value;
             const message = document.getElementById('senderMessage').value;
 
             const botToken = '5273539366:AAGCPWkuIPLJqLibFqTDQ9YU6YqbYijAx7I'; 
@@ -627,7 +848,9 @@
             try {
                 const response = await fetch(telegramUrl);
                 if (response.ok) {
-                    successModal.classList.add('active'); // Show Success Popup
+                    document.getElementById('modalTitle').textContent = "Message Sent!";
+                    document.getElementById('modalDesc').textContent = "Thank you for reaching out. We will get back to you soon.";
+                    successModal.classList.add('active');
                     tgForm.reset();
                 } else {
                     throw new Error('Failed to send');
@@ -641,7 +864,6 @@
             }
         });
 
-        // Close Modal Event
         closeModalBtn.addEventListener('click', () => {
             successModal.classList.remove('active');
         });
