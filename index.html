@@ -121,6 +121,17 @@
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
+            /* Content Protection: Prevents accidental text selection highlighting */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Allow typing inside form inputs and textareas */
+        input, textarea {
+            -webkit-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
         /* -------------------------------------
@@ -210,7 +221,8 @@
 
         /* Blog Card Customization */
         .blog-card { display: flex; flex-direction: column; justify-content: space-between; }
-        .blog-meta { font-size: 0.85rem; color: var(--primary-color); font-weight: 600; margin-bottom: 0.5rem; }
+        .blog-meta { font-size: 0.85rem; color: var(--primary-color); font-weight: 600; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .reading-time { background: rgba(var(--primary-color-rgb), 0.1); padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; }
         .blog-desc { margin-bottom: 1.5rem; }
         .read-more-btn { background: transparent; border: none; color: var(--primary-color); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 0.95rem; text-decoration: none; }
         .read-more-btn:hover { text-decoration: underline; }
@@ -403,7 +415,7 @@
         </div>
     </div>
 
-    <!-- Secret Admin Login / Post Creator & Manager Modal -->
+    <!-- Secret Keyboard Shortcut Admin Modal (Ctrl + M) -->
     <div id="adminModal" class="modal-overlay">
         <div class="admin-modal-box">
             <div class="admin-header-flex">
@@ -421,7 +433,7 @@
                 </form>
             </div>
 
-            <!-- Blog Creator & Manager View (Hidden initially) -->
+            <!-- Blog Creator & Manager View -->
             <div id="adminPostView" style="display: none;">
                 <p style="color: var(--text-light); margin-bottom: 1rem; font-weight: 600;">Publish New Article</p>
                 <form id="blogPostForm" class="admin-form" style="margin-bottom: 2rem;">
@@ -446,7 +458,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Professional Navbar (No Admin Button Visible) -->
+    <!-- Professional Navbar -->
     <header>
         <div class="brand-wrapper">
             <a href="#" class="nav-brand">Nahid<span>DigitalAI</span></a>
@@ -652,8 +664,37 @@
     <!-- AOS JS for Scroll Animations -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <!-- Main JS Scripts & Visitor Tracker -->
+    <!-- Main JS Scripts & Features -->
     <script>
+        // ==========================================
+        // 🚀 PERSISTENT THEME (DARK/LIGHT MODE)
+        // ==========================================
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const icon = themeToggle.querySelector('i');
+
+        const savedTheme = localStorage.getItem('nahid_theme') || 'light';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        if(savedTheme === 'dark') {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                htmlElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('nahid_theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                htmlElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('nahid_theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
         // ==========================================
         // 🚀 VISITOR IP & DEVICE TRACKER TO TELEGRAM
         // ==========================================
@@ -756,23 +797,6 @@
             }
         });
 
-        // Dark/Light Mode Switcher Script
-        const themeToggle = document.getElementById('themeToggle');
-        const htmlElement = document.documentElement;
-        const icon = themeToggle.querySelector('i');
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                htmlElement.setAttribute('data-theme', 'dark');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                htmlElement.setAttribute('data-theme', 'light');
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        });
-
         // Web Share API
         const shareBtn = document.getElementById('shareBtn');
         shareBtn.addEventListener('click', async () => {
@@ -816,7 +840,6 @@
         const ADMIN_USER = "nahid";
         const ADMIN_PASS = "ai2026";
 
-        // Listen for Ctrl + M to open secret admin panel
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key.toLowerCase() === 'm') {
                 e.preventDefault();
@@ -913,7 +936,15 @@
             blogReadModal.classList.add('active');
         };
 
-        // Render Blogs with Search & Category Filter
+        // Calculate Reading Time Helper
+        function getReadingTime(text) {
+            const wordsPerMinute = 200;
+            const wordCount = text.trim().split(/\s+/).length;
+            const readTime = Math.ceil(wordCount / wordsPerMinute);
+            return `${readTime} min read`;
+        }
+
+        // Render Blogs with Search, Filter & Reading Time
         function renderBlogs() {
             let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
             
@@ -942,10 +973,14 @@
             blogContainer.innerHTML = filteredPosts.map(post => {
                 const encoded = encodeURIComponent(post.content);
                 const shortDesc = post.content.length > 110 ? post.content.substring(0, 110) + '...' : post.content;
+                const readingTime = getReadingTime(post.content);
                 return `
                     <div class="card blog-card" data-aos="fade-up">
                         <div>
-                            <div class="blog-meta"><i class="fas fa-calendar-alt"></i> ${post.date} • ${post.category}</div>
+                            <div class="blog-meta">
+                                <span><i class="fas fa-calendar-alt"></i> ${post.date} • ${post.category}</span>
+                                <span class="reading-time"><i class="far fa-clock"></i> ${readingTime}</span>
+                            </div>
                             <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-newspaper"></i></div>
                             <h3>${post.title}</h3>
                             <p class="blog-desc">${shortDesc}</p>
