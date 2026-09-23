@@ -273,12 +273,12 @@
             opacity: 0.9; transform: translateY(-2px);
         }
 
-        /* Admin / Blog Creation Modal */
-        .admin-modal-box {
+        /* Admin / Blog Modal Box */
+        .admin-modal-box, .blog-read-modal-box {
             background: var(--card-bg);
             padding: 2.5rem;
             border-radius: 16px;
-            max-width: 550px; width: 90%;
+            max-width: 650px; width: 90%;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             transform: scale(0.8);
             transition: transform 0.3s ease;
@@ -286,7 +286,7 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-        .modal-overlay.active .admin-modal-box {
+        .modal-overlay.active .admin-modal-box, .modal-overlay.active .blog-read-modal-box {
             transform: scale(1);
         }
         .admin-form {
@@ -303,6 +303,16 @@
         }
         .close-x {
             background: none; border: none; font-size: 1.5rem; color: var(--text-light); cursor: pointer;
+        }
+
+        /* Blog Reader Content Style */
+        .blog-full-content {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-top: 1rem;
+            white-space: pre-line;
+            text-align: left;
         }
 
         /* Floating WhatsApp Button */
@@ -337,6 +347,18 @@
         </div>
     </div>
 
+    <!-- Full Blog Reading Modal -->
+    <div id="blogReadModal" class="modal-overlay">
+        <div class="blog-read-modal-box">
+            <div class="admin-header-flex">
+                <span id="readBlogMeta" class="blog-meta" style="margin: 0;">Date • Category</span>
+                <button class="close-x" id="closeBlogModal"><i class="fas fa-times"></i></button>
+            </div>
+            <h2 id="readBlogTitle" style="color: var(--text-dark); margin-top: 0.5rem; font-size: 1.8rem; text-align: left;"></h2>
+            <div id="readBlogContent" class="blog-full-content"></div>
+        </div>
+    </div>
+
     <!-- Admin Login / Post Creator Modal -->
     <div id="adminModal" class="modal-overlay">
         <div class="admin-modal-box">
@@ -361,7 +383,7 @@
                 <form id="blogPostForm" class="admin-form">
                     <input type="text" id="blogTitle" placeholder="Blog Post Title" required>
                     <input type="text" id="blogCategory" placeholder="Category (e.g., AI & Python, Digital Marketing)" required>
-                    <textarea id="blogContent" rows="5" placeholder="Write your full article content here..." required></textarea>
+                    <textarea id="blogContent" rows="6" placeholder="Write your full article content here..." required></textarea>
                     <button type="submit" class="submit-btn">Publish Post <i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>
@@ -417,7 +439,6 @@
                 <a href="https://facebook.com/NahidDigitalAI" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://linkedin.com/in/NahidDigitalAI" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://instagram.com/NahidDigitalAI" target="_blank" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <!-- Fixed X (Twitter) SVG Icon -->
                 <a href="https://twitter.com/NahidDigitalAI" target="_blank" class="social-icon" title="X (Twitter)">
                     <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
@@ -510,15 +531,6 @@
         </div>
         <div class="grid-container" id="blogContainer">
             <!-- Dynamic Blog posts will load here -->
-            <div class="card blog-card" data-aos="fade-up" data-aos-delay="100">
-                <div>
-                    <div class="blog-meta"><i class="fas fa-calendar-alt"></i> September 23, 2026 • AI & SEO</div>
-                    <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-brain"></i></div>
-                    <h3>How AI is Shaping Modern Digital Marketing in 2026</h3>
-                    <p class="blog-desc">Discover how integrating large language models and automated data processing transforms traditional local SEO and customer acquisition strategies.</p>
-                </div>
-                <button class="read-more-btn" onclick="alert('Full article view coming soon!')">Read Full Article <i class="fas fa-arrow-right"></i></button>
-            </div>
         </div>
     </section>
 
@@ -545,7 +557,6 @@
     <footer>
         <div class="footer-social">
             <a href="https://facebook.com/NahidDigitalAI" target="_blank" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <!-- Fixed X (Twitter) SVG Icon in Footer -->
             <a href="https://twitter.com/NahidDigitalAI" target="_blank" class="social-icon" title="X (Twitter)">
                 <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
@@ -717,7 +728,7 @@
         });
 
         // ==========================================
-        // 🔐 ADMIN LOGIN & BLOG POST SYSTEM
+        // 🔐 ADMIN LOGIN & BLOG SYSTEM (FULL VIEW)
         // ==========================================
         const adminModal = document.getElementById('adminModal');
         const openAdminBtn = document.getElementById('openAdminBtn');
@@ -728,6 +739,12 @@
         const adminModalTitle = document.getElementById('adminModalTitle');
         const blogPostForm = document.getElementById('blogPostForm');
         const blogContainer = document.getElementById('blogContainer');
+
+        const blogReadModal = document.getElementById('blogReadModal');
+        const closeBlogModal = document.getElementById('closeBlogModal');
+        const readBlogTitle = document.getElementById('readBlogTitle');
+        const readBlogMeta = document.getElementById('readBlogMeta');
+        const readBlogContent = document.getElementById('readBlogContent');
 
         const ADMIN_USER = "nahid";
         const ADMIN_PASS = "ai2026";
@@ -745,12 +762,12 @@
             }
         });
 
-        closeAdminModal.addEventListener('click', () => {
-            adminModal.classList.remove('active');
-        });
+        closeAdminModal.addEventListener('click', () => adminModal.classList.remove('active'));
+        closeBlogModal.addEventListener('click', () => blogReadModal.classList.remove('active'));
 
-        adminModal.addEventListener('click', (e) => {
+        window.addEventListener('click', (e) => {
             if(e.target === adminModal) adminModal.classList.remove('active');
+            if(e.target === blogReadModal) blogReadModal.classList.remove('active');
         });
 
         adminLoginForm.addEventListener('submit', (e) => {
@@ -788,34 +805,43 @@
             alert("Blog post published successfully!");
         });
 
+        // Open Full Blog View
+        window.openFullBlog = function(title, date, category, encodedContent) {
+            const content = decodeURIComponent(encodedContent);
+            readBlogTitle.textContent = title;
+            readBlogMeta.innerHTML = `<i class="fas fa-calendar-alt"></i> ${date} • ${category}`;
+            readBlogContent.textContent = content;
+            blogReadModal.classList.add('active');
+        };
+
         function renderBlogs() {
             let savedPosts = JSON.parse(localStorage.getItem('nahid_blog_posts')) || [];
             
-            let defaultPostHTML = `
-                <div class="card blog-card" data-aos="fade-up">
-                    <div>
-                        <div class="blog-meta"><i class="fas fa-calendar-alt"></i> September 23, 2026 • AI & SEO</div>
-                        <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-brain"></i></div>
-                        <h3>How AI is Shaping Modern Digital Marketing in 2026</h3>
-                        <p class="blog-desc">Discover how integrating large language models and automated data processing transforms traditional local SEO and customer acquisition strategies.</p>
-                    </div>
-                    <button class="read-more-btn" onclick="alert('Full article view coming soon!')">Read Full Article <i class="fas fa-arrow-right"></i></button>
-                </div>
-            `;
+            // Default built-in expert post
+            const defaultPost = {
+                title: "How AI is Shaping Modern Digital Marketing in 2026",
+                category: "AI & SEO",
+                date: "September 23, 2026",
+                content: "Discover how integrating large language models and automated data processing transforms traditional local SEO and customer acquisition strategies. Artificial intelligence is no longer just an optional tool; it forms the backbone of contemporary marketing campaigns in Rajshahi and worldwide. By leveraging custom Python automation and semantic keyword targeting, businesses can scale faster, optimize ad spend, and engage clients with unprecedented precision."
+            };
 
-            let dynamicHTML = savedPosts.map(post => `
-                <div class="card blog-card" data-aos="fade-up">
-                    <div>
-                        <div class="blog-meta"><i class="fas fa-calendar-alt"></i> ${post.date} • ${post.category}</div>
-                        <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-newspaper"></i></div>
-                        <h3>${post.title}</h3>
-                        <p class="blog-desc">${post.content.substring(0, 110)}...</p>
-                    </div>
-                    <button class="read-more-btn" onclick="alert('${post.content.replace(/'/g, "\\'")}')">Read Full Article <i class="fas fa-arrow-right"></i></button>
-                </div>
-            `).join('');
+            let allPosts = [defaultPost, ...savedPosts];
 
-            blogContainer.innerHTML = defaultPostHTML + dynamicHTML;
+            blogContainer.innerHTML = allPosts.map(post => {
+                const encoded = encodeURIComponent(post.content);
+                const shortDesc = post.content.length > 110 ? post.content.substring(0, 110) + '...' : post.content;
+                return `
+                    <div class="card blog-card" data-aos="fade-up">
+                        <div>
+                            <div class="blog-meta"><i class="fas fa-calendar-alt"></i> ${post.date} • ${post.category}</div>
+                            <div class="card-icon" style="width: 50px; height: 50px; font-size: 1.4rem; margin-bottom: 1rem;"><i class="fas fa-newspaper"></i></div>
+                            <h3>${post.title}</h3>
+                            <p class="blog-desc">${shortDesc}</p>
+                        </div>
+                        <button class="read-more-btn" onclick="openFullBlog('${post.title.replace(/'/g, "\\'")}', '${post.date}', '${post.category}', '${encoded}')">Read Full Article <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                `;
+            }).join('');
         }
 
         document.addEventListener('DOMContentLoaded', renderBlogs);
@@ -856,7 +882,7 @@
                     throw new Error('Failed to send');
                 }
             } catch (error) {
-                console.error(error);
+                console.log(error);
                 alert("Something went wrong! Please try again later.");
             } finally {
                 submitBtn.innerHTML = originalBtnText;
@@ -864,14 +890,7 @@
             }
         });
 
-        closeModalBtn.addEventListener('click', () => {
-            successModal.classList.remove('active');
-        });
-        successModal.addEventListener('click', (e) => {
-            if(e.target === successModal) {
-                successModal.classList.remove('active');
-            }
-        });
+        closeModalBtn.addEventListener('click', () => successModal.classList.remove('active'));
     </script>
 </body>
 </html>
