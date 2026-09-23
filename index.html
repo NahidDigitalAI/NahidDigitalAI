@@ -164,8 +164,6 @@
         .nav-actions { display: flex; align-items: center; gap: 1rem; }
         .theme-switch { background: none; border: none; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; transition: 0.3s; }
         .theme-switch:hover { color: var(--primary-color); transform: scale(1.1); }
-        .admin-btn { background: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 6px; }
-        .admin-btn:hover { background: var(--primary-color); color: #fff; }
         .contact-btn { background: var(--primary-color); color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .contact-btn:hover { background: var(--text-dark); color: #fff; }
 
@@ -405,7 +403,7 @@
         </div>
     </div>
 
-    <!-- Admin Login / Post Creator & Manager Modal -->
+    <!-- Secret Admin Login / Post Creator & Manager Modal -->
     <div id="adminModal" class="modal-overlay">
         <div class="admin-modal-box">
             <div class="admin-header-flex">
@@ -448,7 +446,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Professional Navbar -->
+    <!-- Professional Navbar (No Admin Button Visible) -->
     <header>
         <div class="brand-wrapper">
             <a href="#" class="nav-brand">Nahid<span>DigitalAI</span></a>
@@ -464,9 +462,6 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
-            <button class="admin-btn" id="openAdminBtn" title="Admin Login">
-                <i class="fas fa-user-shield"></i> Admin
-            </button>
             <button class="theme-switch" id="themeToggle" title="Toggle Dark/Light Mode">
                 <i class="fas fa-moon"></i>
             </button>
@@ -796,10 +791,9 @@
         });
 
         // ==========================================
-        // 🔐 ADMIN LOGIN, ADD & REMOVE BLOG SYSTEM
+        // 🔐 SECRET KEYBOARD SHORTCUT ADMIN SYSTEM (Ctrl + M)
         // ==========================================
         const adminModal = document.getElementById('adminModal');
-        const openAdminBtn = document.getElementById('openAdminBtn');
         const closeAdminModal = document.getElementById('closeAdminModal');
         const adminLoginForm = document.getElementById('adminLoginForm');
         const adminLoginView = document.getElementById('adminLoginView');
@@ -822,17 +816,21 @@
         const ADMIN_USER = "nahid";
         const ADMIN_PASS = "ai2026";
 
-        openAdminBtn.addEventListener('click', () => {
-            adminModal.classList.add('active');
-            if(sessionStorage.getItem('isAdminLoggedIn') === 'true') {
-                adminLoginView.style.display = 'none';
-                adminPostView.style.display = 'block';
-                adminModalTitle.textContent = "Manage Blog Posts";
-                renderAdminPostList();
-            } else {
-                adminLoginView.style.display = 'block';
-                adminPostView.style.display = 'none';
-                adminModalTitle.textContent = "Admin Portal Login";
+        // Listen for Ctrl + M to open secret admin panel
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key.toLowerCase() === 'm') {
+                e.preventDefault();
+                adminModal.classList.add('active');
+                if(sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+                    adminLoginView.style.display = 'none';
+                    adminPostView.style.display = 'block';
+                    adminModalTitle.textContent = "Manage Blog Posts";
+                    renderAdminPostList();
+                } else {
+                    adminLoginView.style.display = 'block';
+                    adminPostView.style.display = 'none';
+                    adminModalTitle.textContent = "Admin Portal Login";
+                }
             }
         });
 
