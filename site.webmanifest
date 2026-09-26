@@ -1,0 +1,9 @@
+{
+  "name": "NahidDigitalAI — AI & Digital Marketing",
+  "short_name": "NahidDigitalAI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070b10",
+  "theme_color": "#0aa8c7",
+  "icons": [{"src":"/assets/nahid-logo.png","sizes":"800x800","type":"image/png","purpose":"any maskable"}]
+}

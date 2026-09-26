@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog Studio | NahidDigitalAI</title>
+<meta name="description" content="Private NahidDigitalAI blog content manager."><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://nahid-digital-ai.vercel.app/admin.html">
+<link rel="icon" href="assets/favicon.png"><link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+<header class="site-header"><div class="container nav">
+<a class="brand-lockup" href="index.html"><img class="brand-logo" src="assets/nahid-logo.png" alt="NahidDigitalAI"><span class="brand-word">Nahid<span>DigitalAI</span></span></a>
+<nav class="nav-links"><a href="index.html">Website</a><a class="active" href="admin.html">Blog Studio</a><a href="blog.html">Blog</a></nav>
+<div class="nav-actions"><button class="theme" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button><a class="btn btn-primary" href="blog.html">View Blog</a></div>
+</div></header>
+<main class="section"><div class="container admin-wrap">
+<div id="lockView" class="admin-lock card">
+<span class="eyebrow">Private workspace</span><h1 style="margin:15px 0 8px">Blog Studio</h1>
+<p class="muted">Add, edit, delete and preview your blog posts. This is a static-site editor, so the data is stored in this browser until you export it.</p>
+<form id="unlockForm" style="margin-top:20px"><div class="field"><label>Studio PIN</label><input id="pin" type="password" placeholder="Enter PIN" required></div><button class="btn btn-primary" style="width:100%">Open Blog Studio</button><div id="unlockStatus" class="form-status"></div></form>
+</div>
+
+<div id="studio" style="display:none">
+<div class="admin-top"><div><span class="eyebrow">Content management</span><h1 style="margin-top:10px">Blog Studio</h1></div><div class="admin-actions"><button class="btn btn-ghost" id="newPost"><i class="fas fa-plus"></i> New Post</button><button class="btn btn-ghost" id="exportJs"><i class="fas fa-download"></i> Export blog-data.js</button><button class="btn btn-ghost" id="exportJson"><i class="fas fa-file-export"></i> Export JSON</button><label class="btn btn-ghost" for="importFile"><i class="fas fa-file-import"></i> Import JSON</label><input id="importFile" type="file" accept=".json" hidden></div></div>
+<div class="notice"><strong>How publishing works:</strong> create your post here, preview it, then use <b>Export blog-data.js</b> and replace <code>assets/blog-data.js</code> in your Vercel/GitHub project. This keeps the website static, fast and easy to manage. Browser-only changes are private to this device until exported.</div>
+<div class="admin-grid">
+<section class="admin-card">
+<h2 id="formTitle">Create a blog post</h2>
+<form id="postForm" style="margin-top:20px">
+<div class="field"><label>Title</label><input id="title" required placeholder="Your article title"></div>
+<div class="form-grid"><div class="field"><label>Category</label><input id="category" required placeholder="AI & Digital Marketing"></div><div class="field"><label>Date</label><input id="date" type="date" required></div></div>
+<div class="field"><label>Author</label><input id="author" value="MD Nahid Hasan Sheikh"></div>
+<div class="field"><label>Featured image URL <small>(optional)</small></label><input id="image" placeholder="https://.../image.jpg"></div>
+<div class="field"><label>Or upload image <small>(optional)</small></label><input id="imageFile" type="file" accept="image/*"></div>
+<div class="field"><label>Short excerpt</label><textarea id="excerpt" rows="3" required placeholder="2–3 lines that appear on the blog card"></textarea></div>
+<div class="field"><label>Full content</label><textarea id="content" rows="12" required placeholder="Write your article here. Separate paragraphs with a blank line."></textarea></div>
+<div class="admin-actions"><button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Save Post</button><button class="btn btn-ghost" type="button" id="clearForm">Clear</button></div>
+<div id="saveStatus" class="form-status"></div>
+</form>
+</section>
+<section class="admin-card">
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><h2>Your posts</h2><p class="muted" style="font-size:.86rem">Edit or remove content before exporting.</p></div><span id="postCount" class="eyebrow"></span></div>
+<div id="postList" style="margin-top:16px"></div>
+</section>
+</div>
+<div class="admin-card" style="margin-top:20px"><h2>Live preview</h2><div id="preview" class="preview-box" style="margin-top:14px">Start typing to preview your article.</div></div>
+</div></div></main>
+<script src="assets/blog-data.js"></script><script src="assets/site.js" defer></script>
+<script>
+(function(){
+const PIN='NAHID2026', KEY='nahid_blog_posts_v2', deletedKey='nahid_blog_deleted_v2';
+const $=id=>document.getElementById(id);
+let editingId=null, imageData='';
+function base(){return Array.isArray(window.NAHID_BLOG_POSTS)?window.NAHID_BLOG_POSTS:[]}
+function local(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch{return[]}}
+function deleted(){try{return JSON.parse(localStorage.getItem(deletedKey)||'[]')}catch{return[]}}
+function posts(){
+ const map=new Map(base().map(p=>[p.id,p]));
+ local().forEach(p=>map.set(p.id,p));
+ deleted().forEach(id=>map.delete(id));
+ return [...map.values()].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+}
+function saveLocal(arr){localStorage.setItem(KEY,JSON.stringify(arr))}
+function slug(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,70)}
+function fill(p){
+ editingId=p?.id||null; imageData=p?.image||'';
+ $('formTitle').textContent=p?'Edit blog post':'Create a blog post';
+ $('title').value=p?.title||'';$('category').value=p?.category||'AI & Digital Marketing';$('date').value=p?.date||new Date().toISOString().slice(0,10);
+ $('author').value=p?.author||'MD Nahid Hasan Sheikh';$('image').value=p?.image?.startsWith('data:')?'':(p?.image||'');$('excerpt').value=p?.excerpt||'';$('content').value=p?.content||'';
+ $('saveStatus').textContent=''; renderPreview();
+}
+function clearForm(){fill(null);imageData='';$('imageFile').value=''}
+function renderList(){
+ const ps=posts();$('postCount').textContent=ps.length+' posts';
+ $('postList').innerHTML=ps.length?ps.map(p=>`<div class="post-row"><div><strong>${escapeHtml(p.title)}</strong><small>${escapeHtml(p.category)} · ${p.date}</small></div><div class="admin-actions"><button class="btn btn-ghost" data-edit="${p.id}"><i class="fas fa-pen"></i></button><button class="btn danger" data-delete="${p.id}"><i class="fas fa-trash"></i></button></div></div>`).join(''):'<p class="muted">No posts yet.</p>';
+}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function renderPreview(){
+ const t=$('title').value.trim(),c=$('category').value,e=$('excerpt').value.trim(),body=$('content').value.trim();
+ $('preview').innerHTML=`<div class="blog-meta">${escapeHtml(c||'Category')} · ${escapeHtml($('date').value||'Date')}</div><h2 style="margin-bottom:8px">${escapeHtml(t||'Your title will appear here')}</h2><p style="font-weight:700;color:var(--text)">${escapeHtml(e||'Your excerpt will appear here')}</p><div style="margin-top:18px">${(body||'Your article content will appear here.').split(/\\n\\s*\\n/).map(x=>`<p style="margin-bottom:12px;color:var(--muted)">${escapeHtml(x).replace(/\\n/g,'<br>')}</p>`).join('')}</div>`;
+}
+$('unlockForm').addEventListener('submit',e=>{e.preventDefault();if($('pin').value===PIN){sessionStorage.setItem('nahid_blog_unlocked','1');$('lockView').style.display='none';$('studio').style.display='block';renderList()}else $('unlockStatus').textContent='Incorrect PIN.'});
+if(sessionStorage.getItem('nahid_blog_unlocked')==='1'){$('lockView').style.display='none';$('studio').style.display='block';renderList()}
+$('newPost').addEventListener('click',clearForm);$('clearForm').addEventListener('click',clearForm);
+['title','category','date','excerpt','content'].forEach(id=>$(id).addEventListener('input',renderPreview));
+$('imageFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(f.size>1200000){$('saveStatus').textContent='Please keep the image under 1.2MB.';e.target.value='';return}const r=new FileReader();r.onload=()=>{imageData=r.result;$('saveStatus').textContent='Image loaded. It will be included in the exported file.'};r.readAsDataURL(f)});
+$('postForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const p={id:editingId||`${slug($('title').value)}-${Date.now()}`,title:$('title').value.trim(),slug:slug($('title').value),category:$('category').value.trim(),date:$('date').value,author:$('author').value.trim()||'MD Nahid Hasan Sheikh',image:imageData||$('image').value.trim(),excerpt:$('excerpt').value.trim(),content:$('content').value.trim()};
+ const arr=local();const i=arr.findIndex(x=>x.id===p.id);if(i>=0)arr[i]=p;else arr.push(p);saveLocal(arr);
+ const d=deleted().filter(id=>id!==p.id);localStorage.setItem(deletedKey,JSON.stringify(d));
+ editingId=p.id;$('saveStatus').textContent='✓ Saved on this device. Export blog-data.js to publish it for visitors.';renderList();renderPreview();
+});
+$('postList').addEventListener('click',e=>{
+ const edit=e.target.closest('[data-edit]')?.dataset.edit,del=e.target.closest('[data-delete]')?.dataset.delete;
+ if(edit){const p=posts().find(x=>x.id===edit);if(p)fill(p)}
+ if(del&&confirm('Delete this blog post?')){const arr=local().filter(p=>p.id!==del);localStorage.setItem(KEY,JSON.stringify(arr));const d=deleted();if(!d.includes(del))d.push(del);localStorage.setItem(deletedKey,JSON.stringify(d));if(editingId===del)clearForm();renderList()}
+});
+function exportJs(){
+ const data=posts();const content='window.NAHID_BLOG_POSTS = '+JSON.stringify(data,null,2)+';\\n';
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'text/javascript'}));a.download='blog-data.js';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)
+}
+function exportJson(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(posts(),null,2)],{type:'application/json'}));a.download='nahid-blog-posts.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+$('exportJs').addEventListener('click',exportJs);$('exportJson').addEventListener('click',exportJson);
+$('importFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result);if(!Array.isArray(data))throw Error();localStorage.setItem(KEY,JSON.stringify(data));localStorage.setItem(deletedKey,'[]');renderList();$('saveStatus').textContent='Imported successfully.'}catch{$('saveStatus').textContent='Invalid JSON file.'}};r.readAsText(f)});
+})();
+</script>
+</body></html>
