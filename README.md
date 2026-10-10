@@ -80,3 +80,22 @@ The frontend tries `/api/contact` first and falls back to the existing frontend 
 - `privacy.html` — basic privacy information
 - `site.webmanifest` — installable web app metadata
 - `vercel.json` — security/cache headers and clean URLs
+
+## Appearance personalization (updated)
+- Visitors can choose Cyan Tech, Electric Violet, Lime Pop, Coral Sunset, or Digital Blue.
+- Light/dark mode and the selected accent palette are saved in this browser with `localStorage`, so the preference remains on later visits and across site pages on the same device/browser.
+- The Appearance panel includes an optional “Surprise me” action; the chosen palette is saved rather than changing randomly on every visit.
+- Visitors can clear site data/browser storage to reset their saved preference. Preferences are device/browser-specific and are not synced between devices.
+
+## Telegram contact security
+- The browser code no longer contains the Telegram Bot Token or calls the Telegram Bot API directly.
+- Configure `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` as Vercel Environment Variables for `/api/contact`.
+- If a token was ever published in source code, revoke it in Telegram BotFather and use a new token.
+
+
+
+## Rajshahi & Bangladesh local SEO content update
+- Homepage and Local SEO page now emphasize Rajshahi, Bangladesh, and genuine service coverage.
+- Added a user-provided Bangladesh city-street photo with descriptive alt text and responsive presentation.
+- Keep every location claim accurate; do not create doorway/location pages for places you do not genuinely serve.
+- No ranking position is guaranteed. Set up Google Search Console, submit `sitemap.xml`, inspect indexing, and measure queries and enquiries after deployment.
