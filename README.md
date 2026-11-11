@@ -20,10 +20,7 @@ Focus: AI strategy, digital marketing, local SEO, Python automation, content and
 - `gemini-code-1790428950524.html`
 - `404.html`
 
-## Easy blog management
-Open `admin.html`.
 
-Studio PIN: `NAHID2026`
 
 You can:
 - add a title
